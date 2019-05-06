@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<!-- saved from url=(0091)http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb -->
+<html lang="zh-tw"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <title>Day_001_HW</title>
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./Day_001_HW_files/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="./Day_001_HW_files/jquery.typeahead.min.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+
+
+<script type="text/javascript" src="./Day_001_HW_files/MathJax.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+// MathJax disabled, set as null to distingish from *missing* MathJax,
+// where it will be undefined, and should prompt a dialog later.
+window.mathjax_url = "/static/components/MathJax/MathJax.js";
+</script>
+
+<link rel="stylesheet" href="./Day_001_HW_files/bootstrap-tour.min.css" type="text/css">
+<link rel="stylesheet" href="./Day_001_HW_files/codemirror.css">
+
+
+    <link rel="stylesheet" href="./Day_001_HW_files/style.min.css" type="text/css">
+    
+
+<link rel="stylesheet" href="./Day_001_HW_files/override.css" type="text/css">
+<link rel="stylesheet" href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb" id="kernel-css" type="text/css">
+
+
+    <link rel="stylesheet" href="./Day_001_HW_files/custom.css" type="text/css">
+    <script src="./Day_001_HW_files/promise.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./Day_001_HW_files/index.js" type="text/javascript"></script>
+    <script src="./Day_001_HW_files/index(1).js" type="text/javascript"></script>
+    <script src="./Day_001_HW_files/index(2).js" type="text/javascript"></script>
+    <script src="./Day_001_HW_files/require.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      require.config({
+          
+          urlArgs: "v=20190506104041",
+          
+          baseUrl: '/static/',
+          paths: {
+            'auth/js/main': 'auth/js/main.min',
+            custom : '/custom',
+            nbextensions : '/nbextensions',
+            kernelspecs : '/kernelspecs',
+            underscore : 'components/underscore/underscore-min',
+            backbone : 'components/backbone/backbone-min',
+            jed: 'components/jed/jed',
+            jquery: 'components/jquery/jquery.min',
+            json: 'components/requirejs-plugins/src/json',
+            text: 'components/requirejs-text/text',
+            bootstrap: 'components/bootstrap/dist/js/bootstrap.min',
+            bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
+            'jquery-ui': 'components/jquery-ui/jquery-ui.min',
+            moment: 'components/moment/min/moment-with-locales',
+            codemirror: 'components/codemirror',
+            termjs: 'components/xterm.js/xterm',
+            typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
+          },
+          map: { // for backward compatibility
+              "*": {
+                  "jqueryui": "jquery-ui",
+              }
+          },
+          shim: {
+            typeahead: {
+              deps: ["jquery"],
+              exports: "typeahead"
+            },
+            underscore: {
+              exports: '_'
+            },
+            backbone: {
+              deps: ["underscore", "jquery"],
+              exports: "Backbone"
+            },
+            bootstrap: {
+              deps: ["jquery"],
+              exports: "bootstrap"
+            },
+            bootstraptour: {
+              deps: ["bootstrap"],
+              exports: "Tour"
+            },
+            "jquery-ui": {
+              deps: ["jquery"],
+              exports: "$"
+            }
+          },
+          waitSeconds: 30,
+      });
+
+      require.config({
+          map: {
+              '*':{
+                'contents': 'services/contents',
+              }
+          }
+      });
+
+      // error-catching custom.js shim.
+      define("custom", function (require, exports, module) {
+          try {
+              var custom = require('custom/custom');
+              console.debug('loaded custom.js');
+              return custom;
+          } catch (e) {
+              console.error("error loading custom.js", e);
+              return {};
+          }
+      })
+
+    document.nbjs_translations = {"domain": "nbjs", "locale_data": {"nbjs": {"": {"domain": "nbjs"}}}};
+    document.documentElement.lang = navigator.language.toLowerCase();
+    </script>
+
+    
+    
+
+<script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/contents" src="./Day_001_HW_files/contents.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="custom/custom" src="./Day_001_HW_files/custom.js"></script><style type="text/css">div.MathJax_MathML {text-align: center; margin: .75em 0px; display: block!important}
+.MathJax_MathML {font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+span.MathJax_MathML {display: inline!important}
+.MathJax_mmlExBox {display: block!important; overflow: hidden; height: 1px; width: 60ex; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0}
+[class="MJX-tex-oldstyle"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB}
+[class="MJX-tex-oldstyle-bold"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB; font-weight: bold}
+[class="MJX-tex-caligraphic"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB}
+[class="MJX-tex-caligraphic-bold"] {font-family: MathJax_Caligraphic, MathJax_Caligraphic-WEB; font-weight: bold}
+@font-face /*1*/ {font-family: MathJax_Caligraphic-WEB; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf')}
+@font-face /*2*/ {font-family: MathJax_Caligraphic-WEB; font-weight: bold; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf')}
+[mathvariant="double-struck"] {font-family: MathJax_AMS, MathJax_AMS-WEB}
+[mathvariant="script"] {font-family: MathJax_Script, MathJax_Script-WEB}
+[mathvariant="fraktur"] {font-family: MathJax_Fraktur, MathJax_Fraktur-WEB}
+[mathvariant="bold-script"] {font-family: MathJax_Script, MathJax_Caligraphic-WEB; font-weight: bold}
+[mathvariant="bold-fraktur"] {font-family: MathJax_Fraktur, MathJax_Fraktur-WEB; font-weight: bold}
+[mathvariant="monospace"] {font-family: monospace}
+[mathvariant="sans-serif"] {font-family: sans-serif}
+[mathvariant="bold-sans-serif"] {font-family: sans-serif; font-weight: bold}
+[mathvariant="sans-serif-italic"] {font-family: sans-serif; font-style: italic}
+[mathvariant="sans-serif-bold-italic"] {font-family: sans-serif; font-style: italic; font-weight: bold}
+@font-face /*3*/ {font-family: MathJax_AMS-WEB; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf')}
+@font-face /*4*/ {font-family: MathJax_Script-WEB; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf')}
+@font-face /*5*/ {font-family: MathJax_Fraktur-WEB; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf')}
+@font-face /*6*/ {font-family: MathJax_Fraktur-WEB; font-weight: bold; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf')}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="nbextensions/jupyter-js-widgets/extension" src="./Day_001_HW_files/extension.js"></script><style type="text/css">.MathJax_Display {text-align: center; margin: 0; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none; box-sizing: content-box}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_test {font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.MathJax_test.mjx-test-display {display: table!important}
+.MathJax_test.mjx-test-inline {display: inline!important; margin-right: -1px}
+.MathJax_test.mjx-test-default {display: block!important; clear: both}
+.MathJax_ex_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60ex}
+.MathJax_em_box {display: inline-block!important; position: absolute; overflow: hidden; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0; width: 1px; height: 60em}
+.mjx-test-inline .MathJax_left_box {display: inline-block; width: 0; float: left}
+.mjx-test-inline .MathJax_right_box {display: inline-block; width: 0; float: right}
+.mjx-test-display .MathJax_right_box {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">/*
+ * Copyright (c) Jupyter Development Team.
+ * Distributed under the terms of the Modified BSD License.
+ */
+
+/* Override the correction for the prompt area in https://github.com/jupyter/notebook/blob/dd41d9fd5c4f698bd7468612d877828a7eeb0e7a/IPython/html/static/notebook/less/outputarea.less#L110 */
+
+.jupyter-widgets-output-area div.output_subarea {
+    max-width: 100%;
+}
+
+/* Work-around for the bug fixed in https://github.com/jupyter/notebook/pull/2961 */
+
+.jupyter-widgets-output-area > .out_prompt_overlay {
+    display: none;
+}
+</style><style type="text/css">/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-Widget {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.p-Widget.p-mod-hidden {
+  display: none !important;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-CommandPalette {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.p-CommandPalette-search {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.p-CommandPalette-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  overflow: auto;
+  list-style-type: none;
+}
+.p-CommandPalette-header {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.p-CommandPalette-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.p-CommandPalette-itemIcon {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.p-CommandPalette-itemContent {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+.p-CommandPalette-itemShortcut {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.p-CommandPalette-itemLabel {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-DockPanel {
+  z-index: 0;
+}
+.p-DockPanel-widget {
+  z-index: 0;
+}
+.p-DockPanel-tabBar {
+  z-index: 1;
+}
+.p-DockPanel-handle {
+  z-index: 2;
+}
+.p-DockPanel-handle.p-mod-hidden {
+  display: none !important;
+}
+.p-DockPanel-handle:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
+.p-DockPanel-handle[data-orientation='horizontal'] {
+  cursor: ew-resize;
+}
+.p-DockPanel-handle[data-orientation='vertical'] {
+  cursor: ns-resize;
+}
+.p-DockPanel-handle[data-orientation='horizontal']:after {
+  left: 50%;
+  min-width: 8px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.p-DockPanel-handle[data-orientation='vertical']:after {
+  top: 50%;
+  min-height: 8px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.p-DockPanel-overlay {
+  z-index: 3;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  pointer-events: none;
+}
+.p-DockPanel-overlay.p-mod-hidden {
+  display: none !important;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-Menu {
+  z-index: 10000;
+  position: absolute;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.p-Menu-content {
+  margin: 0;
+  padding: 0;
+  display: table;
+  list-style-type: none;
+}
+.p-Menu-item {
+  display: table-row;
+}
+.p-Menu-item.p-mod-hidden,
+.p-Menu-item.p-mod-collapsed {
+  display: none !important;
+}
+.p-Menu-itemIcon,
+.p-Menu-itemSubmenuIcon {
+  display: table-cell;
+  text-align: center;
+}
+.p-Menu-itemLabel {
+  display: table-cell;
+  text-align: left;
+}
+.p-Menu-itemShortcut {
+  display: table-cell;
+  text-align: right;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-MenuBar {
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.p-MenuBar-content {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  list-style-type: none;
+}
+.p-MenuBar-item {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.p-MenuBar-itemIcon,
+.p-MenuBar-itemLabel {
+  display: inline-block;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-ScrollBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.p-ScrollBar[data-orientation='horizontal'] {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.p-ScrollBar[data-orientation='vertical'] {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.p-ScrollBar-button {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.p-ScrollBar-track {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+.p-ScrollBar-thumb {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: absolute;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-SplitPanel-child {
+  z-index: 0;
+}
+.p-SplitPanel-handle {
+  z-index: 1;
+}
+.p-SplitPanel-handle.p-mod-hidden {
+  display: none !important;
+}
+.p-SplitPanel-handle:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
+.p-SplitPanel[data-orientation='horizontal'] > .p-SplitPanel-handle {
+  cursor: ew-resize;
+}
+.p-SplitPanel[data-orientation='vertical'] > .p-SplitPanel-handle {
+  cursor: ns-resize;
+}
+.p-SplitPanel[data-orientation='horizontal'] > .p-SplitPanel-handle:after {
+  left: 50%;
+  min-width: 8px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.p-SplitPanel[data-orientation='vertical'] > .p-SplitPanel-handle:after {
+  top: 50%;
+  min-height: 8px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-TabBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.p-TabBar[data-orientation='horizontal'] {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.p-TabBar[data-orientation='vertical'] {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.p-TabBar-content {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  list-style-type: none;
+}
+.p-TabBar[data-orientation='horizontal'] > .p-TabBar-content {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.p-TabBar[data-orientation='vertical'] > .p-TabBar-content {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.p-TabBar-tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+}
+.p-TabBar-tabIcon,
+.p-TabBar-tabCloseIcon {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+.p-TabBar-tabLabel {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.p-TabBar-tab.p-mod-hidden {
+  display: none !important;
+}
+.p-TabBar.p-mod-dragging .p-TabBar-tab {
+  position: relative;
+}
+.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {
+  left: 0;
+  -webkit-transition: left 150ms ease;
+  transition: left 150ms ease;
+}
+.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {
+  top: 0;
+  -webkit-transition: top 150ms ease;
+  transition: top 150ms ease;
+}
+.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {
+  -webkit-transition: none;
+  transition: none;
+}
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-TabPanel-tabBar {
+  z-index: 1;
+}
+.p-TabPanel-stackedPanel {
+  z-index: 0;
+}
+</style><style type="text/css">/* Copyright (c) Jupyter Development Team.
+ * Distributed under the terms of the Modified BSD License.
+ */
+
+ .jupyter-widgets-disconnected::before {
+    content: "\F127"; /* chain-broken */
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #d9534f;
+    padding: 3px;
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+}
+</style><style type="text/css">/* Copyright (c) Jupyter Development Team.
+ * Distributed under the terms of the Modified BSD License.
+ */
+
+ /* We import all of these together in a single css file because the Webpack
+loader sees only one file at a time. This allows postcss to see the variable
+definitions when they are used. */
+
+ /*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Distributed under the terms of the Modified BSD License.
+|----------------------------------------------------------------------------*/
+
+ /*
+This file is copied from the JupyterLab project to define default styling for
+when the widget styling is compiled down to eliminate CSS variables. We make one
+change - we comment out the font import below.
+*/
+
+ /**
+ * The material design colors are adapted from google-material-color v1.2.6
+ * https://github.com/danlevan/google-material-color
+ * https://github.com/danlevan/google-material-color/blob/f67ca5f4028b2f1b34862f64b0ca67323f91b088/dist/palette.var.css
+ *
+ * The license for the material design color CSS variables is as follows (see
+ * https://github.com/danlevan/google-material-color/blob/f67ca5f4028b2f1b34862f64b0ca67323f91b088/LICENSE)
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014 Dan Le Van
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+ /*
+The following CSS variables define the main, public API for styling JupyterLab.
+These variables should be used by all plugins wherever possible. In other
+words, plugins should not define custom colors, sizes, etc unless absolutely
+necessary. This enables users to change the visual theme of JupyterLab
+by changing these variables.
+
+Many variables appear in an ordered sequence (0,1,2,3). These sequences
+are designed to work well together, so for example, `--jp-border-color1` should
+be used with `--jp-layout-color1`. The numbers have the following meanings:
+
+* 0: super-primary, reserved for special emphasis
+* 1: primary, most important under normal situations
+* 2: secondary, next most important under normal situations
+* 3: tertiary, next most important under normal situations
+
+Throughout JupyterLab, we are mostly following principles from Google's
+Material Design when selecting colors. We are not, however, following
+all of MD as it is not optimized for dense, information rich UIs.
+*/
+
+ /*
+ * Optional monospace font for input/output prompt.
+ */
+
+ /* Commented out in ipywidgets since we don't need it. */
+
+ /* @import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); */
+
+ /*
+ * Added for compabitility with output area
+ */
+
+ :root {
+
+  /* Borders
+
+  The following variables, specify the visual styling of borders in JupyterLab.
+   */
+
+  /* UI Fonts
+
+  The UI font CSS variables are used for the typography all of the JupyterLab
+  user interface elements that are not directly user generated content.
+  */ /* Base font size */ /* Ensures px perfect FontAwesome icons */
+
+  /* Use these font colors against the corresponding main layout colors.
+     In a light theme, these go from dark to light.
+  */
+
+  /* Use these against the brand/accent/warn/error colors.
+     These will typically go from light to darker, in both a dark and light theme
+   */
+
+  /* Content Fonts
+
+  Content font variables are used for typography of user generated content.
+  */ /* Base font size */
+
+
+  /* Layout
+
+  The following are the main layout colors use in JupyterLab. In a light
+  theme these would go from light to dark.
+  */
+
+  /* Brand/accent */
+
+  /* State colors (warn, error, success, info) */
+
+  /* Cell specific styles */
+  /* A custom blend of MD grey and blue 600
+   * See https://meyerweb.com/eric/tools/color-blend/#546E7A:1E88E5:5:hex */
+  /* A custom blend of MD grey and orange 600
+   * https://meyerweb.com/eric/tools/color-blend/#546E7A:F4511E:5:hex */
+
+  /* Notebook specific styles */
+
+  /* Console specific styles */
+
+  /* Toolbar specific styles */
+}
+
+ /* Copyright (c) Jupyter Development Team.
+ * Distributed under the terms of the Modified BSD License.
+ */
+
+ /*
+ * We assume that the CSS variables in
+ * https://github.com/jupyterlab/jupyterlab/blob/master/src/default-theme/variables.css
+ * have been defined.
+ */
+
+ /* This file has code derived from PhosphorJS CSS files, as noted below. The license for this PhosphorJS code is:
+
+Copyright (c) 2014-2017, PhosphorJS Contributors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+ /*
+ * The following section is derived from https://github.com/phosphorjs/phosphor/blob/23b9d075ebc5b73ab148b6ebfc20af97f85714c4/packages/widgets/style/tabbar.css 
+ * We've scoped the rules so that they are consistent with exactly our code.
+ */
+
+ .jupyter-widgets.widget-tab > .p-TabBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar[data-orientation='horizontal'] {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar[data-orientation='vertical'] {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar > .p-TabBar-content {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  list-style-type: none;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar[data-orientation='horizontal'] > .p-TabBar-content {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar[data-orientation='vertical'] > .p-TabBar-content {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabIcon,
+.jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabCloseIcon {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabLabel {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab.p-mod-hidden {
+  display: none !important;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar.p-mod-dragging .p-TabBar-tab {
+  position: relative;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab {
+  left: 0;
+  -webkit-transition: left 150ms ease;
+  transition: left 150ms ease;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab {
+  top: 0;
+  -webkit-transition: top 150ms ease;
+  transition: top 150ms ease;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging {
+  -webkit-transition: none;
+  transition: none;
+}
+
+ /* End tabbar.css */
+
+ :root { /* margin between inline elements */
+
+    /* From Material Design Lite */
+}
+
+ .jupyter-widgets {
+    margin: 2px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    color: black;
+    overflow: visible;
+}
+
+ .jupyter-widgets.jupyter-widgets-disconnected::before {
+    line-height: 28px;
+    height: 28px;
+}
+
+ .jp-Output-result > .jupyter-widgets {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+ /* vbox and hbox */
+
+ .widget-inline-hbox {
+    /* Horizontal widgets */
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: baseline;
+        -ms-flex-align: baseline;
+            align-items: baseline;
+}
+
+ .widget-inline-vbox {
+    /* Vertical Widgets */
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+ .widget-box {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0;
+    overflow: auto;
+}
+
+ .widget-gridbox {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: grid;
+    margin: 0;
+    overflow: auto;
+}
+
+ .widget-hbox {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+}
+
+ .widget-vbox {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+ /* General Button Styling */
+
+ .jupyter-button {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+
+    height: 28px;
+    border: 0px solid;
+    line-height: 28px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+
+    color: rgba(0, 0, 0, .8);
+    background-color: #EEEEEE;
+    border-color: #E0E0E0;
+    border: none;
+}
+
+ .jupyter-button i.fa {
+    margin-right: 4px;
+    pointer-events: none;
+}
+
+ .jupyter-button:empty:before {
+    content: "\200B"; /* zero-width space */
+}
+
+ .jupyter-widgets.jupyter-button:disabled {
+    opacity: 0.6;
+}
+
+ .jupyter-button i.fa.center {
+    margin-right: 0;
+}
+
+ .jupyter-button:hover:enabled, .jupyter-button:focus:enabled {
+    /* MD Lite 2dp shadow */
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+                0 3px 1px -2px rgba(0, 0, 0, .2),
+                0 1px 5px 0 rgba(0, 0, 0, .12);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+                0 3px 1px -2px rgba(0, 0, 0, .2),
+                0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+ .jupyter-button:active, .jupyter-button.mod-active {
+    /* MD Lite 4dp shadow */
+    -webkit-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14),
+                0 1px 10px 0 rgba(0, 0, 0, .12),
+                0 2px 4px -1px rgba(0, 0, 0, .2);
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14),
+                0 1px 10px 0 rgba(0, 0, 0, .12),
+                0 2px 4px -1px rgba(0, 0, 0, .2);
+    color: rgba(0, 0, 0, .8);
+    background-color: #BDBDBD;
+}
+
+ .jupyter-button:focus:enabled {
+    outline: 1px solid #64B5F6;
+}
+
+ /* Button "Primary" Styling */
+
+ .jupyter-button.mod-primary {
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #2196F3;
+}
+
+ .jupyter-button.mod-primary.mod-active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #1976D2;
+}
+
+ .jupyter-button.mod-primary:active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #1976D2;
+}
+
+ /* Button "Success" Styling */
+
+ .jupyter-button.mod-success {
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #4CAF50;
+}
+
+ .jupyter-button.mod-success.mod-active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #388E3C;
+ }
+
+ .jupyter-button.mod-success:active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #388E3C;
+ }
+
+ /* Button "Info" Styling */
+
+ .jupyter-button.mod-info {
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #00BCD4;
+}
+
+ .jupyter-button.mod-info.mod-active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #0097A7;
+}
+
+ .jupyter-button.mod-info:active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #0097A7;
+}
+
+ /* Button "Warning" Styling */
+
+ .jupyter-button.mod-warning {
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #FF9800;
+}
+
+ .jupyter-button.mod-warning.mod-active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #F57C00;
+}
+
+ .jupyter-button.mod-warning:active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #F57C00;
+}
+
+ /* Button "Danger" Styling */
+
+ .jupyter-button.mod-danger {
+    color: rgba(255, 255, 255, 1.0);
+    background-color: #F44336;
+}
+
+ .jupyter-button.mod-danger.mod-active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #D32F2F;
+}
+
+ .jupyter-button.mod-danger:active {
+    color: rgba(255, 255, 255, 1);
+    background-color: #D32F2F;
+}
+
+ /* Widget Button*/
+
+ .widget-button, .widget-toggle-button {
+    width: 148px;
+}
+
+ /* Widget Label Styling */
+
+ /* Override Bootstrap label css */
+
+ .jupyter-widgets label {
+    margin-bottom: 0;
+    margin-bottom: initial;
+}
+
+ .widget-label-basic {
+    /* Basic Label */
+    color: black;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 28px;
+}
+
+ .widget-label {
+    /* Label */
+    color: black;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 28px;
+}
+
+ .widget-inline-hbox .widget-label {
+    /* Horizontal Widget Label */
+    color: black;
+    text-align: right;
+    margin-right: 8px;
+    width: 80px;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+}
+
+ .widget-inline-vbox .widget-label {
+    /* Vertical Widget Label */
+    color: black;
+    text-align: center;
+    line-height: 28px;
+}
+
+ /* Widget Readout Styling */
+
+ .widget-readout {
+    color: black;
+    font-size: 13px;
+    height: 28px;
+    line-height: 28px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+}
+
+ .widget-readout.overflow {
+    /* Overflowing Readout */
+
+    /* From Material Design Lite
+        shadow-key-umbra-opacity: 0.2;
+        shadow-key-penumbra-opacity: 0.14;
+        shadow-ambient-shadow-opacity: 0.12;
+     */
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .2),
+                        0 3px 1px -2px rgba(0, 0, 0, .14),
+                        0 1px 5px 0 rgba(0, 0, 0, .12);
+
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .2),
+                0 3px 1px -2px rgba(0, 0, 0, .14),
+                0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+ .widget-inline-hbox .widget-readout {
+    /* Horizontal Readout */
+    text-align: center;
+    max-width: 148px;
+    min-width: 72px;
+    margin-left: 4px;
+}
+
+ .widget-inline-vbox .widget-readout {
+    /* Vertical Readout */
+    margin-top: 4px;
+    /* as wide as the widget */
+    width: inherit;
+}
+
+ /* Widget Checkbox Styling */
+
+ .widget-checkbox {
+    width: 300px;
+    height: 28px;
+    line-height: 28px;
+}
+
+ .widget-checkbox input[type="checkbox"] {
+    margin: 0px 8px 0px 0px;
+    line-height: 28px;
+    font-size: large;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    -ms-flex-item-align: center;
+        align-self: center;
+}
+
+ /* Widget Valid Styling */
+
+ .widget-valid {
+    height: 28px;
+    line-height: 28px;
+    width: 148px;
+    font-size: 13px;
+}
+
+ .widget-valid i:before {
+    line-height: 28px;
+    margin-right: 4px;
+    margin-left: 4px;
+
+    /* from the fa class in FontAwesome: https://github.com/FortAwesome/Font-Awesome/blob/49100c7c3a7b58d50baa71efef11af41a66b03d3/css/font-awesome.css#L14 */
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ .widget-valid.mod-valid i:before {
+    content: "\F00C";
+    color: green;
+}
+
+ .widget-valid.mod-invalid i:before {
+    content: "\F00D";
+    color: red;
+}
+
+ .widget-valid.mod-valid .widget-valid-readout {
+    display: none;
+}
+
+ /* Widget Text and TextArea Stying */
+
+ .widget-textarea, .widget-text {
+    width: 300px;
+}
+
+ .widget-text input[type="text"], .widget-text input[type="number"]{
+    height: 28px;
+    line-height: 28px;
+}
+
+ .widget-text input[type="text"]:disabled, .widget-text input[type="number"]:disabled, .widget-textarea textarea:disabled {
+    opacity: 0.6;
+}
+
+ .widget-text input[type="text"], .widget-text input[type="number"], .widget-textarea textarea {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border: 1px solid #9E9E9E;
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+    font-size: 13px;
+    padding: 4px 8px;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    min-width: 0; /* This makes it possible for the flexbox to shrink this input */
+    -ms-flex-negative: 1;
+        flex-shrink: 1;
+    outline: none !important;
+}
+
+ .widget-textarea textarea {
+    height: inherit;
+    width: inherit;
+}
+
+ .widget-text input:focus, .widget-textarea textarea:focus {
+    border-color: #64B5F6;
+}
+
+ /* Widget Slider */
+
+ .widget-slider .ui-slider {
+    /* Slider Track */
+    border: 1px solid #BDBDBD;
+    background: #BDBDBD;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    position: relative;
+    border-radius: 0px;
+}
+
+ .widget-slider .ui-slider .ui-slider-handle {
+    /* Slider Handle */
+    outline: none !important; /* focused slider handles are colored - see below */
+    position: absolute;
+    background-color: white;
+    border: 1px solid #9E9E9E;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    z-index: 1;
+    background-image: none; /* Override jquery-ui */
+}
+
+ /* Override jquery-ui */
+
+ .widget-slider .ui-slider .ui-slider-handle:hover, .widget-slider .ui-slider .ui-slider-handle:focus {
+    background-color: #2196F3;
+    border: 1px solid #2196F3;
+}
+
+ .widget-slider .ui-slider .ui-slider-handle:active {
+    background-color: #2196F3;
+    border-color: #2196F3;
+    z-index: 2;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+}
+
+ .widget-slider  .ui-slider .ui-slider-range {
+    /* Interval between the two specified value of a double slider */
+    position: absolute;
+    background: #2196F3;
+    z-index: 0;
+}
+
+ /* Shapes of Slider Handles */
+
+ .widget-hslider .ui-slider .ui-slider-handle {
+    width: 16px;
+    height: 16px;
+    margin-top: -7px;
+    margin-left: -7px;
+    border-radius: 50%;
+    top: 0;
+}
+
+ .widget-vslider .ui-slider .ui-slider-handle {
+    width: 16px;
+    height: 16px;
+    margin-bottom: -7px;
+    margin-left: -7px;
+    border-radius: 50%;
+    left: 0;
+}
+
+ .widget-hslider .ui-slider .ui-slider-range {
+    height: 8px;
+    margin-top: -3px;
+}
+
+ .widget-vslider .ui-slider .ui-slider-range {
+    width: 8px;
+    margin-left: -3px;
+}
+
+ /* Horizontal Slider */
+
+ .widget-hslider {
+    width: 300px;
+    height: 28px;
+    line-height: 28px;
+
+    /* Override the align-items baseline. This way, the description and readout
+    still seem to align their baseline properly, and we don't have to have
+    align-self: stretch in the .slider-container. */
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+ .widgets-slider .slider-container {
+    overflow: visible;
+}
+
+ .widget-hslider .slider-container {
+    height: 28px;
+    margin-left: 6px;
+    margin-right: 6px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 148px;
+            flex: 1 1 148px;
+}
+
+ .widget-hslider .ui-slider {
+    /* Inner, invisible slide div */
+    height: 4px;
+    margin-top: 12px;
+    width: 100%;
+}
+
+ /* Vertical Slider */
+
+ .widget-vbox .widget-label {
+    height: 28px;
+    line-height: 28px;
+}
+
+ .widget-vslider {
+    /* Vertical Slider */
+    height: 200px;
+    width: 72px;
+}
+
+ .widget-vslider .slider-container {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 148px;
+            flex: 1 1 148px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+ .widget-vslider .ui-slider-vertical {
+    /* Inner, invisible slide div */
+    width: 4px;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ /* Widget Progress Styling */
+
+ .progress-bar {
+    -webkit-transition: none;
+    transition: none;
+}
+
+ .progress-bar {
+    height: 28px;
+}
+
+ .progress-bar {
+    background-color: #2196F3;
+}
+
+ .progress-bar-success {
+    background-color: #4CAF50;
+}
+
+ .progress-bar-info {
+    background-color: #00BCD4;
+}
+
+ .progress-bar-warning {
+    background-color: #FF9800;
+}
+
+ .progress-bar-danger {
+    background-color: #F44336;
+}
+
+ .progress {
+    background-color: #EEEEEE;
+    border: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+
+ /* Horisontal Progress */
+
+ .widget-hprogress {
+    /* Progress Bar */
+    height: 28px;
+    line-height: 28px;
+    width: 300px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+
+}
+
+ .widget-hprogress .progress {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+    /* Override bootstrap style */
+    height: auto;
+    height: initial;
+}
+
+ /* Vertical Progress */
+
+ .widget-vprogress {
+    height: 200px;
+    width: 72px;
+}
+
+ .widget-vprogress .progress {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    width: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+}
+
+ /* Select Widget Styling */
+
+ .widget-dropdown {
+    height: 28px;
+    width: 300px;
+    line-height: 28px;
+}
+
+ .widget-dropdown > select {
+    padding-right: 20px;
+    border: 1px solid #9E9E9E;
+    border-radius: 0;
+    height: inherit;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 148px;
+            flex: 1 1 148px;
+    min-width: 0; /* This makes it possible for the flexbox to shrink this input */
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    outline: none !important;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+    font-size: 13px;
+    vertical-align: top;
+    padding-left: 8px;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+    background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: right center;
+    background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCAxOCAxOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTggMTg7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHN0eWxlIHR5cGU9InRleHQvY3NzIj4KCS5zdDB7ZmlsbDpub25lO30KPC9zdHlsZT4KPHBhdGggZD0iTTUuMiw1LjlMOSw5LjdsMy44LTMuOGwxLjIsMS4ybC00LjksNWwtNC45LTVMNS4yLDUuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTAtMC42aDE4djE4SDBWLTAuNnoiLz4KPC9zdmc+Cg");
+}
+
+ .widget-dropdown > select:focus {
+    border-color: #64B5F6;
+}
+
+ .widget-dropdown > select:disabled {
+    opacity: 0.6;
+}
+
+ /* To disable the dotted border in Firefox around select controls.
+   See http://stackoverflow.com/a/18853002 */
+
+ .widget-dropdown > select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+ /* Select and SelectMultiple */
+
+ .widget-select {
+    width: 300px;
+    line-height: 28px;
+
+    /* Because Firefox defines the baseline of a select as the bottom of the
+    control, we align the entire control to the top and add padding to the
+    select to get an approximate first line baseline alignment. */
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+}
+
+ .widget-select > select {
+    border: 1px solid #9E9E9E;
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+    font-size: 13px;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 148px;
+            flex: 1 1 148px;
+    outline: none !important;
+    overflow: auto;
+    height: inherit;
+
+    /* Because Firefox defines the baseline of a select as the bottom of the
+    control, we align the entire control to the top and add padding to the
+    select to get an approximate first line baseline alignment. */
+    padding-top: 5px;
+}
+
+ .widget-select > select:focus {
+    border-color: #64B5F6;
+}
+
+ .wiget-select > select > option {
+    padding-left: 4px;
+    line-height: 28px;
+    /* line-height doesn't work on some browsers for select options */
+    padding-top: calc(28px - var(--jp-widgets-font-size) / 2);
+    padding-bottom: calc(28px - var(--jp-widgets-font-size) / 2);
+}
+
+ /* Toggle Buttons Styling */
+
+ .widget-toggle-buttons {
+    line-height: 28px;
+}
+
+ .widget-toggle-buttons .widget-toggle-button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+ .widget-toggle-buttons .jupyter-button:disabled {
+    opacity: 0.6;
+}
+
+ /* Radio Buttons Styling */
+
+ .widget-radio {
+    width: 300px;
+    line-height: 28px;
+}
+
+ .widget-radio-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    margin-bottom: 8px;
+}
+
+ .widget-radio-box label {
+    height: 20px;
+    line-height: 20px;
+    font-size: 13px;
+}
+
+ .widget-radio-box input {
+    height: 20px;
+    line-height: 20px;
+    margin: 0 8px 0 1px;
+    float: left;
+}
+
+ /* Color Picker Styling */
+
+ .widget-colorpicker {
+    width: 300px;
+    height: 28px;
+    line-height: 28px;
+}
+
+ .widget-colorpicker > .widget-colorpicker-input {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-negative: 1;
+        flex-shrink: 1;
+    min-width: 72px;
+}
+
+ .widget-colorpicker input[type="color"] {
+    width: 28px;
+    height: 28px;
+    padding: 0 2px; /* make the color square actually square on Chrome on OS X */
+    background: white;
+    color: rgba(0, 0, 0, .8);
+    border: 1px solid #9E9E9E;
+    border-left: none;
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+    outline: none !important;
+}
+
+ .widget-colorpicker.concise input[type="color"] {
+    border-left: 1px solid #9E9E9E;
+}
+
+ .widget-colorpicker input[type="color"]:focus, .widget-colorpicker input[type="text"]:focus {
+    border-color: #64B5F6;
+}
+
+ .widget-colorpicker input[type="text"] {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    outline: none !important;
+    height: 28px;
+    line-height: 28px;
+    background: white;
+    color: rgba(0, 0, 0, .8);
+    border: 1px solid #9E9E9E;
+    font-size: 13px;
+    padding: 4px 8px;
+    min-width: 0; /* This makes it possible for the flexbox to shrink this input */
+    -ms-flex-negative: 1;
+        flex-shrink: 1;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+ .widget-colorpicker input[type="text"]:disabled {
+    opacity: 0.6;
+}
+
+ /* Date Picker Styling */
+
+ .widget-datepicker {
+    width: 300px;
+    height: 28px;
+    line-height: 28px;
+}
+
+ .widget-datepicker input[type="date"] {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-negative: 1;
+        flex-shrink: 1;
+    min-width: 0; /* This makes it possible for the flexbox to shrink this input */
+    outline: none !important;
+    height: 28px;
+    border: 1px solid #9E9E9E;
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+    font-size: 13px;
+    padding: 4px 8px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+ .widget-datepicker input[type="date"]:focus {
+    border-color: #64B5F6;
+}
+
+ .widget-datepicker input[type="date"]:invalid {
+    border-color: #FF9800;
+}
+
+ .widget-datepicker input[type="date"]:disabled {
+    opacity: 0.6;
+}
+
+ /* Play Widget */
+
+ .widget-play {
+    width: 148px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+}
+
+ .widget-play .jupyter-button {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    height: auto;
+}
+
+ .widget-play .jupyter-button:disabled {
+    opacity: 0.6;
+}
+
+ /* Tab Widget */
+
+ .jupyter-widgets.widget-tab {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar {
+    /* Necessary so that a tab can be shifted down to overlay the border of the box below. */
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar > .p-TabBar-content {
+    /* Make sure that the tab grows from bottom up */
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    min-width: 0;
+    min-height: 0;
+}
+
+ .jupyter-widgets.widget-tab > .widget-tab-contents {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    background: white;
+    color: rgba(0, 0, 0, .8);
+    border: 1px solid #9E9E9E;
+    padding: 15px;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    overflow: auto;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar {
+    font: 13px Helvetica, Arial, sans-serif;
+    min-height: 25px;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 144px;
+            flex: 0 1 144px;
+    min-width: 35px;
+    min-height: 25px;
+    line-height: 24px;
+    margin-left: -1px;
+    padding: 0px 10px;
+    background: #EEEEEE;
+    color: rgba(0, 0, 0, .5);
+    border: 1px solid #9E9E9E;
+    border-bottom: none;
+    position: relative;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab.p-mod-current {
+    color: rgba(0, 0, 0, 1.0);
+    /* We want the background to match the tab content background */
+    background: white;
+    min-height: 26px;
+    -webkit-transform: translateY(1px);
+            transform: translateY(1px);
+    overflow: visible;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab.p-mod-current:before {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    content: '';
+    height: 2px;
+    width: calc(100% + 2px);
+    background: #2196F3;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab:first-child {
+    margin-left: 0;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tab:hover:not(.p-mod-current) {
+    background: white;
+    color: rgba(0, 0, 0, .8);
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-mod-closable > .p-TabBar-tabCloseIcon {
+    margin-left: 4px;
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-mod-closable > .p-TabBar-tabCloseIcon:before {
+    font-family: FontAwesome;
+    content: '\F00D'; /* close */
+}
+
+ .jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabIcon,
+.jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabLabel,
+.jupyter-widgets.widget-tab > .p-TabBar .p-TabBar-tabCloseIcon {
+    line-height: 24px;
+}
+
+ /* Accordion Widget */
+
+ .p-Collapse {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+}
+
+ .p-Collapse-header {
+    padding: 4px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, .5);
+    background-color: #EEEEEE;
+    border: 1px solid #9E9E9E;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+ .p-Collapse-header:hover {
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+}
+
+ .p-Collapse-open > .p-Collapse-header {
+    background-color: white;
+    color: rgba(0, 0, 0, 1.0);
+    cursor: default;
+    border-bottom: none;
+}
+
+ .p-Collapse .p-Collapse-header::before {
+    content: '\F0DA\A0';  /* caret-right, non-breaking space */
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+ .p-Collapse-open > .p-Collapse-header::before {
+    content: '\F0D7\A0'; /* caret-down, non-breaking space */
+}
+
+ .p-Collapse-contents {
+    padding: 15px;
+    background-color: white;
+    color: rgba(0, 0, 0, .8);
+    border-left: 1px solid #9E9E9E;
+    border-right: 1px solid #9E9E9E;
+    border-bottom: 1px solid #9E9E9E;
+    overflow: auto;
+}
+
+ .p-Accordion {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+}
+
+ .p-Accordion .p-Collapse {
+    margin-bottom: 0;
+}
+
+ .p-Accordion .p-Collapse + .p-Collapse {
+    margin-top: 4px;
+}
+
+ /* HTML widget */
+
+ .widget-html, .widget-htmlmath {
+    font-size: 13px;
+}
+
+ .widget-html > .widget-html-content, .widget-htmlmath > .widget-html-content {
+    /* Fill out the area in the HTML widget */
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-negative: 1;
+        flex-shrink: 1;
+    /* Makes sure the baseline is still aligned with other elements */
+    line-height: 28px;
+    /* Make it possible to have absolutely-positioned elements in the html */
+    position: relative;
+}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Main-italic; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Main-Italic.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Main-Italic.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Normal-italic; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Normal-Italic.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Normal-Italic.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Main; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Main-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Main-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Monospace; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Monospace-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Monospace-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Latin; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Latin-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Latin-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Alphabets; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Alphabets-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Alphabets-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Marks; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Marks-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Marks-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Arrows; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Arrows-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Arrows-Regular.otf?V=2.7.5') format('opentype')}
+</style><style type="text/css">@font-face {font-family: STIXMathJax_Operators; src: url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/woff/STIXMathJax_Operators-Regular.woff?V=2.7.5') format('woff'), url('http://localhost:8888/static/components/MathJax/fonts/HTML-CSS/STIX-Web/otf/STIXMathJax_Operators-Regular.otf?V=2.7.5') format('opentype')}
+</style><link id="favicon" type="image/x-icon" rel="shortcut icon" href="http://localhost:8888/static/base/images/favicon-notebook.ico"></head>
+
+<body class="notebook_app command_mode" data-jupyter-api-token="66dcd6560775277c9b28b0791ee1734e33e43a65165299ee" data-base-url="/" data-ws-url="" data-notebook-name="Day_001_HW.ipynb" data-notebook-path="Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb" dir="ltr"><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+<noscript>
+    <div id='noscript'>
+      Jupyter Notebook requires JavaScript.<br>
+      Please enable it to proceed. 
+  </div>
+</noscript>
+
+<div id="header" style="display: block;">
+  <div id="header-container" class="container">
+  <div id="ipython_notebook" class="nav navbar-brand"><a href="http://localhost:8888/tree?token=66dcd6560775277c9b28b0791ee1734e33e43a65165299ee" title="dashboard">
+      <img src="./Day_001_HW_files/logo.png" alt="Jupyter Notebook">
+  </a></div>
+
+  
+
+
+<span id="save_widget" class="save_widget">
+    <span id="notebook_name" class="filename">Day_001_HW</span>
+    <span class="checkpoint_status" title="2019年5月6日星期一 12:44">Last Checkpoint: 4 分鐘前</span>
+    <span class="autosave_status">(unsaved changes)</span>
+</span>
+
+<span id="kernel_logo_widget">
+  
+  <img class="current_kernel_logo" alt="Current Kernel Logo" src="./Day_001_HW_files/logo-64x64.png" title="Python 3" style="display: inline;">
+  
+</span>
+
+
+  
+  
+  
+  
+
+    <span id="login_widget">
+      
+        <button id="logout" class="btn btn-sm navbar-btn">Logout</button>
+      
+    </span>
+
+  
+
+  
+  
+  </div>
+  <div class="header-bar"></div>
+
+  
+<div id="menubar-container" class="container">
+<div id="menubar">
+    <div id="menus" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <i class="fa fa-bars"></i>
+              <span class="navbar-text">Menu</span>
+            </button>
+            <p id="kernel_indicator" class="navbar-text indicator_area">
+              <span class="kernel_indicator_name">Python 3</span>
+              <i id="kernel_indicator_icon" class="kernel_idle_icon" title="Kernel Idle"></i>
+            </p>
+            <i id="readonly-indicator" class="navbar-text" title="This notebook is read-only" style="display: none;">
+                <span class="fa-stack">
+                    <i class="fa fa-save fa-stack-1x"></i>
+                    <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                </span>
+            </i>
+            <i id="modal_indicator" class="navbar-text modal_indicator" title="Command Mode"></i>
+            <span id="notification_area"><div id="notification_kernel" class="notification_widget btn btn-xs navbar-btn undefined info" style="display: none;"><span></span></div><div id="notification_notebook" class="notification_widget btn btn-xs navbar-btn" style="display: none;"><span></span></div><div id="notification_trusted" class="notification_widget btn btn-xs navbar-btn" style="cursor: help;" disabled="disabled"><span title="Javascript enabled for notebook display">Trusted</span></div><div id="notification_widgets" class="notification_widget btn btn-xs navbar-btn" style="display: none;"><span></span></div></span>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">File</a>
+                    <ul id="file_menu" class="dropdown-menu">
+                        <li id="new_notebook" class="dropdown-submenu">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">New Notebook</a>
+                            <ul class="dropdown-menu" id="menu-new-notebook-submenu"><li id="new-notebook-submenu-python3"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Python 3</a></li></ul>
+                        </li>
+                        <li id="open_notebook" title="Opens a new window with the Dashboard view">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Open...</a></li>
+                        <!-- <hr/> -->
+                        <li class="divider"></li>
+                        <li id="copy_notebook" title="Open a copy of this notebook&#39;s contents and start a new kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Make a Copy...</a></li>
+                        <li id="save_notebook_as" title="Save a copy of the notebook&#39;s contents and start a new kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Save as...</a></li>
+                        <li id="rename_notebook"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Rename...</a></li>
+                        <li id="save_checkpoint"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Save and Checkpoint</a></li>
+                        <!-- <hr/> -->
+                        <li class="divider"></li>
+                        <li id="restore_checkpoint" class="dropdown-submenu"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Revert to Checkpoint</a>
+                          <ul class="dropdown-menu"><li><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">2019年5月6日星期一 12:44</a></li></ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="print_preview"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Print Preview</a></li>
+                        <li class="dropdown-submenu"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Download as</a>
+                            <ul id="download_menu" class="dropdown-menu">
+                                <li id="download_ipynb"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Notebook (.ipynb)</a></li>
+                                <li id="download_script"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Python (.py)</a></li>
+                                <li id="download_html"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">HTML (.html)</a></li>
+                                <li id="download_slides"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Reveal.js slides (.html)</a></li>
+                                <li id="download_markdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Markdown (.md)</a></li>
+                                <li id="download_rst"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">reST (.rst)</a></li>
+                                <li id="download_latex"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">LaTeX (.tex)</a></li>
+                                <li id="download_pdf"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">PDF via LaTeX (.pdf)</a></li>
+                                
+                                <li id="download_asciidoc">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">asciidoc (.asciidoc)</a>
+                                </li>
+                                
+                                <li id="download_custom">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">custom (.txt)</a>
+                                </li>
+                                
+                                <li id="download_html">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">custom (.html)</a>
+                                </li>
+                                
+                                <li id="download_latex">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">latex (.tex)</a>
+                                </li>
+                                
+                                <li id="download_markdown">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">markdown (.md)</a>
+                                </li>
+                                
+                                <li id="download_notebook">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">notebook (.ipynb)</a>
+                                </li>
+                                
+                                <li id="download_pdf">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">pdf (.tex)</a>
+                                </li>
+                                
+                                <li id="download_python">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">python (.py)</a>
+                                </li>
+                                
+                                <li id="download_rst">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">rst (.rst)</a>
+                                </li>
+                                
+                                <li id="download_script">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">custom (.txt)</a>
+                                </li>
+                                
+                                <li id="download_slides">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">slides (.slides.html)</a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu hidden"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Deploy as</a>
+                            <ul id="deploy_menu" class="dropdown-menu"></ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="trust_notebook" title="Trust the output of this notebook" class="disabled">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Trusted Notebook</a></li>
+                        <li class="divider"></li>
+                        <li id="close_and_halt" title="Shutdown this notebook&#39;s kernel, and close this window">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Close and Halt</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
+                    <ul id="edit_menu" class="dropdown-menu">
+                        <li id="cut_cell"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Cut Cells</a></li>
+                        <li id="copy_cell"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Copy Cells</a></li>
+                        <li id="paste_cell_above" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Paste Cells Above</a></li>
+                        <li id="paste_cell_below" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Paste Cells Below</a></li>
+                        <li id="paste_cell_replace" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Paste Cells &amp; Replace</a></li>
+                        <li id="delete_cell"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Delete Cells</a></li>
+                        <li id="undelete_cell" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Undo Delete Cells</a></li>
+                        <li class="divider"></li>
+                        <li id="split_cell"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Split Cell</a></li>
+                        <li id="merge_cell_above"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Merge Cell Above</a></li>
+                        <li id="merge_cell_below"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Merge Cell Below</a></li>
+                        <li class="divider"></li>
+                        <li id="move_cell_up"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Move Cell Up</a></li>
+                        <li id="move_cell_down"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Move Cell Down</a></li>
+                        <li class="divider"></li>
+                        <li id="edit_nb_metadata"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Edit Notebook Metadata</a></li>
+                        <li class="divider"></li>
+                        <li id="find_and_replace"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#"> Find and Replace </a></li>
+                        <li class="divider"></li>
+                        <li id="cut_cell_attachments"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Cut Cell Attachments</a></li>
+                        <li id="copy_cell_attachments"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Copy Cell Attachments</a></li>
+                        <li id="paste_cell_attachments" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Paste Cell Attachments</a></li>
+                        <li class="divider"></li>
+                        <li id="insert_image" class="disabled"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#"> Insert Image </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">View</a>
+                    <ul id="view_menu" class="dropdown-menu">
+                        <li id="toggle_header" title="Show/Hide the logo and notebook title (above menu bar)">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle Header</a>
+                        </li>
+                        <li id="toggle_toolbar" title="Show/Hide the action icons (below menu bar)">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle Toolbar</a>
+                        </li>
+                        <li id="toggle_line_numbers" title="Show/Hide line numbers in cells">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle Line Numbers</a>
+                        </li>
+                        <li id="menu-cell-toolbar" class="dropdown-submenu">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Cell Toolbar</a>
+                            <ul class="dropdown-menu" id="menu-cell-toolbar-submenu"><li data-name="None"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">None</a></li><li data-name="Edit%20Metadata"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Edit Metadata</a></li><li data-name="Raw%20Cell%20Format"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Raw Cell Format</a></li><li data-name="Slideshow"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Slideshow</a></li><li data-name="Attachments"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Attachments</a></li><li data-name="Tags"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Tags</a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Insert</a>
+                    <ul id="insert_menu" class="dropdown-menu">
+                        <li id="insert_cell_above" title="Insert an empty Code cell above the currently active cell">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Insert Cell Above</a></li>
+                        <li id="insert_cell_below" title="Insert an empty Code cell below the currently active cell">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Insert Cell Below</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Cell</a>
+                    <ul id="cell_menu" class="dropdown-menu">
+                        <li id="run_cell" title="Run this cell, and move cursor to the next one">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run Cells</a></li>
+                        <li id="run_cell_select_below" title="Run this cell, select below">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run Cells and Select Below</a></li>
+                        <li id="run_cell_insert_below" title="Run this cell, insert below">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run Cells and Insert Below</a></li>
+                        <li id="run_all_cells" title="Run all cells in the notebook">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run All</a></li>
+                        <li id="run_all_cells_above" title="Run all cells above (but not including) this cell">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run All Above</a></li>
+                        <li id="run_all_cells_below" title="Run this cell and all cells below it">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Run All Below</a></li>
+                        <li class="divider"></li>
+                        <li id="change_cell_type" class="dropdown-submenu" title="All cells in the notebook have a cell type. By default, new cells are created as &#39;Code&#39; cells">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Cell Type</a>
+                            <ul class="dropdown-menu">
+                              <li id="to_code" title="Contents will be sent to the kernel for execution, and output will display in the footer of cell">
+                                  <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Code</a></li>
+                              <li id="to_markdown" title="Contents will be rendered as HTML and serve as explanatory text">
+                                  <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Markdown</a></li>
+                              <li id="to_raw" title="Contents will pass through nbconvert unmodified">
+                                  <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Raw NBConvert</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="current_outputs" class="dropdown-submenu"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Current Outputs</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_current_output" title="Hide/Show the output of the current cell">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle</a>
+                                </li>
+                                <li id="toggle_current_output_scroll" title="Scroll the output of the current cell">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_current_output" title="Clear the output of the current cell">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="all_outputs" class="dropdown-submenu"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">All Output</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_all_output" title="Hide/Show the output of all cells">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle</a>
+                                </li>
+                                <li id="toggle_all_output_scroll" title="Scroll the output of all cells">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_all_output" title="Clear the output of all cells">
+                                    <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Kernel</a>
+                    <ul id="kernel_menu" class="dropdown-menu">
+                        <li id="int_kernel" title="Send Keyboard Interrupt (CTRL-C) to the Kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Interrupt</a>
+                        </li>
+                        <li id="restart_kernel" title="Restart the Kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Restart</a>
+                        </li>
+                        <li id="restart_clear_output" title="Restart the Kernel and clear all output">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Restart &amp; Clear Output</a>
+                        </li>
+                        <li id="restart_run_all" title="Restart the Kernel and re-run the notebook">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Restart &amp; Run All</a>
+                        </li>
+                        <li id="reconnect_kernel" title="Reconnect to the Kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Reconnect</a>
+                        </li>
+                        <li id="shutdown_kernel" title="Shutdown the Kernel">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Shutdown</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="menu-change-kernel" class="dropdown-submenu">
+                            <a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Change kernel</a>
+                            <ul class="dropdown-menu" id="menu-change-kernel-submenu"><li id="kernel-submenu-python3"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Python 3</a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" data-toggle="dropdown" class="dropdown-toggle">Widgets</a><ul id="widget-submenu" class="dropdown-menu"><li title="Save the notebook with the widget state information for static rendering"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Save Notebook Widget State</a></li><li title="Clear the widget state information from the notebook"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Clear Notebook Widget State</a></li><ul class="divider"></ul><li title="Download the widget state as a JSON file"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Download Widget State</a></li><li title="Embed interactive widgets"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Embed Widgets</a></li></ul></li><li class="dropdown"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="dropdown-toggle" data-toggle="dropdown">Help</a>
+                    <ul id="help_menu" class="dropdown-menu">
+                        
+                        <li id="notebook_tour" title="A quick tour of the notebook user interface"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">User Interface Tour</a></li>
+                        <li id="keyboard_shortcuts" title="Opens a tooltip with all keyboard shortcuts"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Keyboard Shortcuts</a></li>
+                        <li id="edit_keyboard_shortcuts" title="Opens a dialog allowing you to edit Keyboard shortcuts"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">Edit Keyboard Shortcuts</a></li>
+                        <li class="divider"></li>
+                        
+
+						
+                        
+                            
+                                <li><a rel="noreferrer" href="http://nbviewer.jupyter.org/github/ipython/ipython/blob/3.x/examples/Notebook/Index.ipynb" target="_blank" title="Opens in a new window">
+                                
+                                    <i class="fa fa-external-link menu-icon pull-right"></i>
+                                
+
+                                Notebook Help
+                                </a></li>
+                            
+                                <li><a rel="noreferrer" href="https://help.github.com/articles/markdown-basics/" target="_blank" title="Opens in a new window">
+                                
+                                    <i class="fa fa-external-link menu-icon pull-right"></i>
+                                
+
+                                Markdown
+                                </a></li>
+                            
+                            
+                        
+                        <li id="kernel-help-links" class="divider"></li><li><a target="_blank" title="Opens in a new window" href="https://docs.python.org/3.7?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>Python Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="https://ipython.org/documentation.html?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>IPython Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="https://docs.scipy.org/doc/numpy/reference/?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>NumPy Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="https://docs.scipy.org/doc/scipy/reference/?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>SciPy Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="https://matplotlib.org/contents.html?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>Matplotlib Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="http://docs.sympy.org/latest/index.html?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>SymPy Reference</span></a></li><li><a target="_blank" title="Opens in a new window" href="https://pandas.pydata.org/pandas-docs/stable/?v=20190506104041"><i class="fa fa-external-link menu-icon pull-right"></i><span>pandas Reference</span></a></li><li class="divider"></li>
+                        <li title="About Jupyter Notebook"><a id="notebook_about" href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#">About</a></li>
+                        
+                    </ul>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="maintoolbar" class="navbar">
+  <div class="toolbar-inner navbar-inner navbar-nobg">
+    <div id="maintoolbar-container" class="container toolbar"><div class="btn-group" id="save-notbook"><button class="btn btn-default" title="Save and Checkpoint" data-jupyter-action="jupyter-notebook:save-notebook"><i class="fa-save fa"></i></button></div><div class="btn-group" id="insert_above_below"><button class="btn btn-default" title="insert cell below" data-jupyter-action="jupyter-notebook:insert-cell-below"><i class="fa-plus fa"></i></button></div><div class="btn-group" id="cut_copy_paste"><button class="btn btn-default" title="cut selected cells" data-jupyter-action="jupyter-notebook:cut-cell"><i class="fa-cut fa"></i></button><button class="btn btn-default" title="copy selected cells" data-jupyter-action="jupyter-notebook:copy-cell"><i class="fa-copy fa"></i></button><button class="btn btn-default" title="paste cells below" data-jupyter-action="jupyter-notebook:paste-cell-below"><i class="fa-paste fa"></i></button></div><div class="btn-group" id="move_up_down"><button class="btn btn-default" title="move selected cells up" data-jupyter-action="jupyter-notebook:move-cell-up"><i class="fa-arrow-up fa"></i></button><button class="btn btn-default" title="move selected cells down" data-jupyter-action="jupyter-notebook:move-cell-down"><i class="fa-arrow-down fa"></i></button></div><div class="btn-group" id="run_int"><button class="btn btn-default" title="Run" data-jupyter-action="jupyter-notebook:run-cell-and-select-next"><i class="fa-step-forward fa"></i><span class="toolbar-btn-label">Run</span></button><button class="btn btn-default" title="interrupt the kernel" data-jupyter-action="jupyter-notebook:interrupt-kernel"><i class="fa-stop fa"></i></button><button class="btn btn-default" title="restart the kernel (with dialog)" data-jupyter-action="jupyter-notebook:confirm-restart-kernel"><i class="fa-repeat fa"></i></button><button class="btn btn-default" title="restart the kernel, then re-run the whole notebook (with dialog)" data-jupyter-action="jupyter-notebook:confirm-restart-kernel-and-run-all-cells"><i class="fa-forward fa"></i></button></div><select id="cell_type" class="form-control select-xs"><option value="code">Code</option><option value="markdown">Markdown</option><option value="raw">Raw NBConvert</option><option value="heading">Heading</option><option value="multiselect" disabled="disabled" style="display: none;">-</option></select><div class="btn-group"><button class="btn btn-default" title="open the command palette" data-jupyter-action="jupyter-notebook:show-command-palette"><i class="fa-keyboard-o fa"></i></button></div></div>
+  </div>
+</div>
+</div>
+
+<div class="lower-header-bar"></div>
+
+</div>
+
+<div id="site" style="display: block; height: 484px;">
+
+
+<div id="ipython-main-app">
+    <div id="notebook_panel">
+        <div id="notebook" tabindex="-1"><div class="container" id="notebook-container"><div class="cell text_cell rendered selected" tabindex="2"><div class="prompt input_prompt"></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-default CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 6px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="bottom: 0px; width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; padding-right: 0px; padding-bottom: 0px; margin-bottom: 0px; border-right-width: 30px; min-height: 102px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors"><div class="CodeMirror-cursor" style="left: 6px; top: 0px; height: 20px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-2">## 練習時間</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-4">#### 請寫一個函式用來計算 Mean Square Error</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-delimit cm-delimit-open">$</span> MSE = <span class="cm-tag">\frac</span><span class="cm-bracket">{</span><span class="cm-atom">1</span><span class="cm-bracket">}{</span>n<span class="cm-bracket">}</span><span class="cm-tag">\sum</span>_<span class="cm-bracket">{</span>i=1<span class="cm-bracket">}</span>^<span class="cm-bracket">{</span>n<span class="cm-bracket">}{</span>(Y_i - <span class="cm-tag">\hat</span><span class="cm-bracket">{</span>Y<span class="cm-bracket">}</span>_i)^2<span class="cm-bracket">}</span> <span class="cm-delimit cm-delimit-close">$</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-header cm-header-3">### Hint: </span><span class="cm-link cm-header cm-header-3">[如何取平方]</span><span class="cm-string cm-url cm-header cm-header-3">(https://googoodesign.gitbooks.io/-ezpython/unit-1.html)</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 102px;"></div><div class="CodeMirror-gutters" style="display: none; height: 132px;"></div></div></div></div><div class="text_cell_render rendered_html" tabindex="-1"><h2 id="練習時間">練習時間<a class="anchor-link" href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#%E7%B7%B4%E7%BF%92%E6%99%82%E9%96%93">¶</a></h2>
+<h4 id="請寫一個函式用來計算-Mean-Square-Error">請寫一個函式用來計算 Mean Square Error<a class="anchor-link" href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#%E8%AB%8B%E5%AF%AB%E4%B8%80%E5%80%8B%E5%87%BD%E5%BC%8F%E7%94%A8%E4%BE%86%E8%A8%88%E7%AE%97-Mean-Square-Error">¶</a></h4>
+<p><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="position: relative;" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;M&lt;/mi&gt;&lt;mi&gt;S&lt;/mi&gt;&lt;mi&gt;E&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mfrac&gt;&lt;munderover&gt;&lt;mo&gt;&amp;#x2211;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;/munderover&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;Y&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mover&gt;&lt;mi&gt;Y&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x005E;&lt;/mo&gt;&lt;/mover&gt;&lt;/mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;/msub&gt;&lt;msup&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 13.217em; display: inline-block;"><span style="display: inline-block; position: relative; width: 11.015em; height: 0px; font-size: 120%;"><span style="position: absolute; clip: rect(1.372em, 1011.01em, 3.039em, -999.997em); top: -2.497em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: STIXMathJax_Normal-italic;">𝑀<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mi" id="MathJax-Span-4" style="font-family: STIXMathJax_Normal-italic;">𝑆<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.063em;"></span></span><span class="mi" id="MathJax-Span-5" style="font-family: STIXMathJax_Normal-italic;">𝐸<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-6" style="font-family: STIXMathJax_Main; padding-left: 0.301em;">=</span><span class="mfrac" id="MathJax-Span-7" style="padding-left: 0.301em;"><span style="display: inline-block; position: relative; width: 0.479em; height: 0px; margin-right: 0.122em; margin-left: 0.122em;"><span style="position: absolute; clip: rect(3.336em, 1000.3em, 4.17em, -999.997em); top: -4.402em; left: 50%; margin-left: -0.176em;"><span class="mn" id="MathJax-Span-8" style="font-size: 70.7%; font-family: STIXMathJax_Main;">1</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.515em, 1000.36em, 4.17em, -999.997em); top: -3.628em; left: 50%; margin-left: -0.176em;"><span class="mi" id="MathJax-Span-9" style="font-size: 70.7%; font-family: STIXMathJax_Normal-italic;">𝑛</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(0.836em, 1000.48em, 1.253em, -999.997em); top: -1.307em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 0.479em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.074em;"></span></span></span></span><span class="munderover" id="MathJax-Span-10" style="padding-left: 0.182em;"><span style="display: inline-block; position: relative; width: 2.027em; height: 0px;"><span style="position: absolute; clip: rect(3.039em, 1000.84em, 4.408em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-11" style="font-family: STIXMathJax_Operators; vertical-align: 0.003em;">∑</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.515em, 1000.42em, 4.17em, -999.997em); top: -4.461em; left: 0.896em;"><span class="texatom" id="MathJax-Span-12"><span class="mrow" id="MathJax-Span-13"><span class="mi" id="MathJax-Span-14" style="font-size: 70.7%; font-family: STIXMathJax_Normal-italic;">𝑛</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; clip: rect(3.336em, 1001.13em, 4.17em, -999.997em); top: -3.688em; left: 0.896em;"><span class="texatom" id="MathJax-Span-15"><span class="mrow" id="MathJax-Span-16"><span class="mi" id="MathJax-Span-17" style="font-size: 70.7%; font-family: STIXMathJax_Normal-italic;">𝑖</span><span class="mo" id="MathJax-Span-18" style="font-size: 70.7%; font-family: STIXMathJax_Main;">=</span><span class="mn" id="MathJax-Span-19" style="font-size: 70.7%; font-family: STIXMathJax_Main;">1</span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="texatom" id="MathJax-Span-20" style="padding-left: 0.182em;"><span class="mrow" id="MathJax-Span-21"><span class="mo" id="MathJax-Span-22" style="font-family: STIXMathJax_Main;">(</span><span class="msubsup" id="MathJax-Span-23"><span style="display: inline-block; position: relative; width: 0.836em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.72em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-24" style="font-family: STIXMathJax_Normal-italic;">𝑌<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.182em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.539em;"><span class="mi" id="MathJax-Span-25" style="font-size: 70.7%; font-family: STIXMathJax_Normal-italic;">𝑖</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="mo" id="MathJax-Span-26" style="font-family: STIXMathJax_Main; padding-left: 0.241em;">−</span><span class="msubsup" id="MathJax-Span-27" style="padding-left: 0.241em;"><span style="display: inline-block; position: relative; width: 1.015em; height: 0px;"><span style="position: absolute; clip: rect(2.86em, 1000.72em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="texatom" id="MathJax-Span-28"><span class="mrow" id="MathJax-Span-29"><span class="munderover" id="MathJax-Span-30"><span style="display: inline-block; position: relative; width: 0.717em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.72em, 4.17em, -999.997em); top: -3.985em; left: 0em;"><span class="mi" id="MathJax-Span-31" style="font-family: STIXMathJax_Normal-italic;">𝑌<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.182em;"></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.283em; left: 0.301em;"><span style="height: 0em; vertical-align: 0em; width: 0.36em; display: inline-block; overflow: hidden;"></span><span class="mo" id="MathJax-Span-32" style="font-family: STIXMathJax_Main;">̂&nbsp;<span style="height: 0em; vertical-align: 0em; margin-left: -0.235em;"></span></span><span style="display: inline-block; overflow: hidden; height: 1px; width: 0em;"></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -3.807em; left: 0.717em;"><span class="mi" id="MathJax-Span-33" style="font-size: 70.7%; font-family: STIXMathJax_Normal-italic;">𝑖</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span><span class="msubsup" id="MathJax-Span-34"><span style="display: inline-block; position: relative; width: 0.777em; height: 0px;"><span style="position: absolute; clip: rect(3.158em, 1000.3em, 4.348em, -999.997em); top: -3.985em; left: 0em;"><span class="mo" id="MathJax-Span-35" style="font-family: STIXMathJax_Main;">)</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span><span style="position: absolute; top: -4.342em; left: 0.36em;"><span class="mn" id="MathJax-Span-36" style="font-size: 70.7%; font-family: STIXMathJax_Main;">2</span><span style="display: inline-block; width: 0px; height: 3.991em;"></span></span></span></span></span></span></span><span style="display: inline-block; width: 0px; height: 2.503em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.496em; border-left: 0px solid; width: 0px; height: 1.718em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>M</mi><mi>S</mi><mi>E</mi><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow class="MJX-TeXAtom-ORD"><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow class="MJX-TeXAtom-ORD"><mi>n</mi></mrow></munderover><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">(</mo><msub><mi>Y</mi><mi>i</mi></msub><mo>−</mo><msub><mrow class="MJX-TeXAtom-ORD"><mover><mi>Y</mi><mo stretchy="false">^</mo></mover></mrow><mi>i</mi></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></math></span></span><script type="math/tex" id="MathJax-Element-1"> MSE = \frac{1}{n}\sum_{i=1}^{n}{(Y_i - \hat{Y}_i)^2} </script></p>
+<h3 id="Hint:-如何取平方">Hint: <a href="https://googoodesign.gitbooks.io/-ezpython/unit-1.html" target="_blank">如何取平方</a><a class="anchor-link" href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#Hint:-%E5%A6%82%E4%BD%95%E5%8F%96%E5%B9%B3%E6%96%B9">¶</a></h3>
+</div></div></div><div class="cell code_cell rendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[4]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 22.5938px; left: 265.969px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 268.969px; margin-bottom: 0px; border-right-width: 30px; min-height: 45px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 265.969px; top: 17px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">numpy</span> <span class="cm-keyword">as</span> <span class="cm-variable">np</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">import</span> <span class="cm-variable">matplotlib</span>.<span class="cm-property">pyplot</span> <span class="cm-keyword">as</span> <span class="cm-variable">plt</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 45px;"></div><div class="CodeMirror-gutters" style="display: none; height: 75px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide"></div><div class="output"></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell rendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[2]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 6px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 352.844px; margin-bottom: 0px; border-right-width: 30px; min-height: 130px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 6px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">mean_absolute_error</span>(<span class="cm-variable">y</span>, <span class="cm-variable">yp</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">mae</span> <span class="cm-operator">=</span> <span class="cm-variable">MAE</span> <span class="cm-operator">=</span> <span class="cm-builtin">sum</span>(<span class="cm-builtin">abs</span>(<span class="cm-variable">y</span> <span class="cm-operator">-</span> <span class="cm-variable">yp</span>)) <span class="cm-operator">/</span> <span class="cm-builtin">len</span>(<span class="cm-variable">y</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">mae</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">def</span> <span class="cm-def">mean_squared_error</span>(<span class="cm-variable">y</span>, <span class="cm-variable">yp</span>):</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable">mse</span> <span class="cm-operator">=</span> <span class="cm-variable">MSE</span> <span class="cm-operator">=</span> <span class="cm-builtin">sum</span>((<span class="cm-variable">y</span> <span class="cm-operator">-</span> <span class="cm-variable">yp</span>)<span class="cm-operator">**</span><span class="cm-number">2</span>) <span class="cm-operator">/</span> <span class="cm-builtin">len</span>(<span class="cm-variable">y</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable">mse</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 130px;"></div><div class="CodeMirror-gutters" style="display: none; height: 160px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide"></div><div class="output"></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell rendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[5]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 175.594px; left: 89.5625px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 403.312px; margin-bottom: 0px; border-right-width: 30px; min-height: 198px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 89.5625px; top: 170px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">w</span> <span class="cm-operator">=</span> <span class="cm-number">3</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">b</span> <span class="cm-operator">=</span> <span class="cm-number">0.5</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">x_lin</span> <span class="cm-operator">=</span> <span class="cm-variable">np</span>.<span class="cm-property">linspace</span>(<span class="cm-number">0</span>, <span class="cm-number">100</span>, <span class="cm-number">101</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">y</span> <span class="cm-operator">=</span> (<span class="cm-variable">x_lin</span> <span class="cm-operator">+</span> <span class="cm-variable">np</span>.<span class="cm-property">random</span>.<span class="cm-property">randn</span>(<span class="cm-number">101</span>) <span class="cm-operator">*</span> <span class="cm-number">5</span>) <span class="cm-operator">*</span> <span class="cm-variable">w</span> <span class="cm-operator">+</span> <span class="cm-variable">b</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">plot</span>(<span class="cm-variable">x_lin</span>, <span class="cm-variable">y</span>, <span class="cm-string">'b.'</span>, <span class="cm-variable">label</span> <span class="cm-operator">=</span> <span class="cm-string">'data points'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">title</span>(<span class="cm-string">"Assume we have data points"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">legend</span>(<span class="cm-variable">loc</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">show</span><span class=" CodeMirror-matchingbracket">(</span><span class=" CodeMirror-matchingbracket">)</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 198px;"></div><div class="CodeMirror-gutters" style="display: none; height: 228px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide"></div><div class="output"><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_png"><img src="data:image/png;base64,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TgHuDtML2Tw82unA77xOXWQmnfv65je/yQc+8AGOPfZY/va3v22aP3v2bA455BDGjRvHaaedxttvv82DDz7IwoULufTSSxk/fjxPP/10wfXyzZgxg3POOYdjjjmG0aNHM3t2NJSmu3PppZcyZswYxo4dy223RQMeLV++nDFjxgAwd+5cPvnJT3LccccxevRovvKVrwBw+eWXs3btWsaPH8/ZZ5/NW2+9xYknnsi4ceMYM2bMpm2JSGnxQN2/PwwevDm4X3ABvPtu7zX0ww+PUjQzZ0bLf//7aLpeaRsgCii9/QEHAX8C/kw0VNuVYf4+RONlLiMaOmy7MH9AeL8sLN+n1Hd8+MMf9nxPPvnkVvN68+CD7gMHure1Ra8PPljRx7fS2dnpY8aM8bfeestff/1133ffff073/mOu7u/8sorm9b76le/6jfeeKO7u0+ZMsV/9rOfbVpWbL24q666yg866CB/++23fdWqVT5ixAh/4YUXfMGCBX7sscf6+vXr/cUXX/SRI0f6ihUr/Nlnn/UDDzzQ3d3nzJnje++9t69evdrXrl3r7e3t3tXV5e7uO+yww6bvWLBggZ9//vmb3q9evXqrclT6e4tk3YMPul99dfQan7766ijOgPs227j361d93IlvtxpAp5eIr+5e+masu/8Z+FCB+c8Q5evz578DVDtAc9UKXV7Vcrb84x//yKmnnsr2228PwMknn7xp2RNPPMHXvvY1Vq9ezZtvvsknPvGJgtsod71JkyYxcOBABg4cyMc+9jEeeeQRHnjgAc466yza2trYY489OOqoo3j00Uc56KCDtvjsxIkT2WmnaHjSAw44gOeee46RI0dusc7YsWO55JJLuOyyyzjppJM44ogjqv5dRLIsd9N18GC46KIoluRumk6fvnm9/v03L7v+eujpqfxGbfwmbdo3Zpv2ydhK5S6vcj9aErmvYs0Ozz33XO666y7GjRvH3LlzWVTkjkq56+V/j5nlrqZK2m677TZNt7W1sX79+q3W2W+//ViyZAn33HMP06dP5+Mf/zhXXnllWdsX6SvigdcMNm6M/vIrjrlUTLWtcHKSrpz2JjN93cTzYEmcGY888kjuvPNO1q5dy5o1a/jFL36xadmaNWsYOnQo69at4+abb940f9CgQaxZs6bkevnuvvtu3nnnHXp6eli0aBGHHHIIRx55JLfd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"></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell rendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[6]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 90.5938px; left: 89.5625px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 512.625px; margin-bottom: 0px; border-right-width: 30px; min-height: 113px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 89.5625px; top: 85px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">y_hat</span> <span class="cm-operator">=</span> <span class="cm-variable">x_lin</span> <span class="cm-operator">*</span> <span class="cm-variable">w</span> <span class="cm-operator">+</span> <span class="cm-variable">b</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">plot</span>(<span class="cm-variable">x_lin</span>, <span class="cm-variable">y</span>, <span class="cm-string">'b.'</span>, <span class="cm-variable">label</span> <span class="cm-operator">=</span> <span class="cm-string">'data'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">plot</span>(<span class="cm-variable">x_lin</span>, <span class="cm-variable">y_hat</span>, <span class="cm-string">'r-'</span>, <span class="cm-variable">label</span> <span class="cm-operator">=</span> <span class="cm-string">'prediction'</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">title</span>(<span class="cm-string">"Assume we have data points (And the prediction)"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">legend</span>(<span class="cm-variable">loc</span> <span class="cm-operator">=</span> <span class="cm-number">2</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">plt</span>.<span class="cm-property">show</span><span class=" CodeMirror-matchingbracket">(</span><span class=" CodeMirror-matchingbracket">)</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 113px;"></div><div class="CodeMirror-gutters" style="display: none; height: 143px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide"></div><div class="output"><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_png"><img src="data:image/png;base64,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"></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell rendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[7]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 73.5938px; left: 408.781px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 411.781px; margin-bottom: 0px; border-right-width: 30px; min-height: 96px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 408.781px; top: 68px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation" style=""><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment"># 執行 Function, 確認有沒有正常執行</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">MSE</span> <span class="cm-operator">=</span> <span class="cm-variable">mean_squared_error</span>(<span class="cm-variable">y</span>, <span class="cm-variable">y_hat</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">MAE</span> <span class="cm-operator">=</span> <span class="cm-variable">mean_absolute_error</span>(<span class="cm-variable">y</span>, <span class="cm-variable">y_hat</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span>(<span class="cm-string">"The Mean squared error is %.3f"</span> <span class="cm-operator">%</span> (<span class="cm-variable">MSE</span>))</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">print</span><span class=" CodeMirror-matchingbracket">(</span><span class="cm-string">"The Mean absolute error is %.3f"</span> <span class="cm-operator">%</span> (<span class="cm-variable">MAE</span>)<span class=" CodeMirror-matchingbracket">)</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 96px;"></div><div class="CodeMirror-gutters" style="display: none; height: 126px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide"></div><div class="output"><div class="output_area"><div class="run_this_cell"></div><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>The Mean squared error is 267.086
+The Mean absolute error is 13.095
+</pre></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div><div class="cell code_cell unrendered unselected" tabindex="2"><div class="input"><div class="prompt_container"><div class="prompt input_prompt"><bdi>In</bdi>&nbsp;[&nbsp;]:</div><div class="run_this_cell" title="Run this cell"><i class="fa-step-forward fa"></i></div></div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" cm-not-content="true" style="width: 18px; pointer-events: none;"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" cm-not-content="true" style="height: 18px; pointer-events: none;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 8.59375px; margin-bottom: 0px; border-right-width: 30px; min-height: 28px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 5.59375px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" role="presentation"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; border-bottom: 0px solid transparent; top: 28px;"></div><div class="CodeMirror-gutters" style="display: none; height: 58px;"></div></div></div></div></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output"></div><div class="output"></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div></div></div><div class="end_space"></div></div>
+        <div id="tooltip" class="ipython_tooltip" style="display:none"><div class="tooltipbuttons"><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" role="button" class="ui-button"><span class="ui-icon ui-icon-close">Close</span></a><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" class="ui-corner-all" role="button" id="expanbutton" title="Grow the tooltip vertically (press shift-tab twice)"><span class="ui-icon ui-icon-plus">Expand</span></a><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" role="button" class="ui-button" title="show the current docstring in pager (press shift-tab 4 times)"><span class="ui-icon ui-icon-arrowstop-l-n">Open in Pager</span></a><a href="http://localhost:8888/notebooks/Desktop/AI/Marathon/2nd-ML100Days/homework/Day_001_HW.ipynb#" role="button" class="ui-button" title="Tooltip will linger for 10 seconds while you type" style="display: none;"><span class="ui-icon ui-icon-clock">Close</span></a></div><div class="pretooltiparrow"></div><div class="tooltiptext smalltooltip"></div></div>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+<div id="pager" class="ui-resizable">
+    <div id="pager-contents">
+        <div id="pager-container" class="container"></div>
+    </div>
+    <div id="pager-button-area"><a role="button" title="Open the pager in an external window" class="ui-button"><span class="ui-icon ui-icon-extlink"></span></a><a role="button" title="Close the pager" class="ui-button"><span class="ui-icon ui-icon-close"></span></a></div>
+<div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div></div>
+
+
+
+
+
+
+<script type="text/javascript">
+    sys_info = {"notebook_version": "5.7.4", "notebook_path": "/Users/YuwenChiu/anaconda3/lib/python3.7/site-packages/notebook", "commit_source": "", "commit_hash": "", "sys_version": "3.7.1 (default, Dec 14 2018, 13:28:58) \n[Clang 4.0.1 (tags/RELEASE_401/final)]", "sys_executable": "/Users/YuwenChiu/anaconda3/bin/python", "sys_platform": "darwin", "platform": "Darwin-16.7.0-x86_64-i386-64bit", "os_name": "posix", "default_encoding": "UTF-8"};
+</script>
+
+<script src="./Day_001_HW_files/encoding.js" charset="utf-8"></script>
+
+<script src="./Day_001_HW_files/main.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+<script type="text/javascript">
+  function _remove_token_from_url() {
+    if (window.location.search.length <= 1) {
+      return;
+    }
+    var search_parameters = window.location.search.slice(1).split('&');
+    for (var i = 0; i < search_parameters.length; i++) {
+      if (search_parameters[i].split('=')[0] === 'token') {
+        // remote token from search parameters
+        search_parameters.splice(i, 1);
+        var new_search = '';
+        if (search_parameters.length) {
+          new_search = '?' + search_parameters.join('&');
+        }
+        var new_url = window.location.origin + 
+                      window.location.pathname + 
+                      new_search + 
+                      window.location.hash;
+        window.history.replaceState({}, "", new_url);
+        return;
+      }
+    }
+  }
+  _remove_token_from_url();
+</script>
+
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; min-width: 0px; max-width: none; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXMathJax_Operators, sans-serif;"></div></div></body></html>
