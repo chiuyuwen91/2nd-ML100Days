@@ -1,3 +1,2 @@
 # 2nd-ML100Days
-機器學習百日馬拉松
-
+In this 100 days bootcamp, we learn how to preprocessing data, feature engineering, build models with different algorithm such as XGboosting, prediction.
